@@ -1,0 +1,227 @@
+﻿<!--<div style="border: 1px solid red">profile Component</div>-->
+<!--<form class="form-signin  mt-3 ml-1 ">
+    <h2> Профиль</h2><span>для изменения  нажмите сохранить</span>
+    <div class="form-group ">
+        <label for="login">Логин</label>
+        <input type="text" class="form-control" placeholder="Логин" name="login" [(ngModel)]="user.login"
+               #login="ngModel" required>
+        <div [hidden]="login.valid || login.untouched" class="invalid-feedback " #loginFeedback>
+            Не указан логин
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input class="form-control" type="email" name="email" [(ngModel)]="user.email" #email="ngModel" placeholder="Email"  required email />
+        <div [hidden]="email.valid || email.untouched" class="invalid-feedback " #emailFeedback>
+            Неверный email
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Пароль</label>
+        <input type="password" class="form-control" placeholder="Пароль" [(ngModel)]="user.password" name="password" #password="ngModel" required>
+        <div [hidden]="password.valid || password.untouched" class=" invalid-feedback " #passwordFeedback>
+            Введите  пароль, если хотите изменить
+        </div>
+    </div>
+    <button type="button" class="btn btn-lg btn-primary btn-block" (click)="updateUser(loginFeedback,emailFeedback,passwordFeedback,errorResponse)">Сохранить изменения</button>
+    <button type="button" class="btn btn-lg btn-danger btn-block" (click)="deleteUser(errorResponse)">Удалить профиль</button>
+    <div class=" invalid-feedback " #errorResponse>
+
+
+    </div>
+</form>
+
+<button type="button" class="btn btn-lg btn-toggle" data-toggle="button" aria-pressed="false" autocomplete="off">
+    <div class="handle"></div>
+</button>-->
+
+
+
+
+<mat-accordion class="container-fluid">
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Личная информация
+            </mat-panel-title>
+            <mat-panel-description>
+                Инфомация профиля
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="d-flex flex-wrap justify-content-center">
+            <mat-card class="example-card">
+                <mat-card-header class="justify-content-between ">
+                    <mat-card-title>Информация</mat-card-title>
+                    <mat-slide-toggle [color]="red" [checked]="checked" #profileSlideToggle>Редактировать</mat-slide-toggle>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <form form class="" #profileForm="ngForm">
+
+                        <mat-form-field class="registration-form-field ">
+                            <input matInput [(ngModel)]="user.login" name="login" minlength="3" maxlength="30"
+                                   placeholder="Логин" #login="ngModel" required [readonly]="!profileSlideToggle.checked">
+                            <mat-hint align="start"><strong>Имя для входа в систему</strong> </mat-hint>
+                            <mat-hint align="end">{{login.value?.length||0}} / 30</mat-hint>
+                            <mat-error *ngIf="login.hasError('required')">Введите логин</mat-error>
+                            <mat-error *ngIf="login.hasError('minlength')">Ваш логин слишком короткий( минимум 4 символа)</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="registration-form-field ">
+                            <input matInput [(ngModel)]="user.email" name="email" placeholder="E-mail" type="email"
+                                   #email="ngModel" required email [readonly]="!profileSlideToggle.checked">
+                            <mat-hint align="start"><strong>Ваш E-mail( мы никому его не будем показывать)</strong> </mat-hint>
+                            <mat-error *ngIf="email.hasError('required')">Введите email</mat-error>
+                            <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">Введите валидный email</mat-error>
+                            <mat-error *ngIf="email.invalid
+                           && !email.hasError('required')
+                           && !email.hasError('email')">Введите валидный email</mat-error>
+                        </mat-form-field>
+                    </form>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button color="primary" [disabled]="profileForm.invalid || !profileSlideToggle.checked"
+                            (click)="updateProfile()">
+                        Сохранить изменения
+                    </button>
+                    <!--<button mat-button color="primary" [disabled]="profileForm.invalid || !profileSlideToggle.checked"
+                            (click)="deleteProfile()">
+                        Удалить профиль
+                    </button>-->
+                </mat-card-actions>
+            </mat-card>
+
+            <mat-card class="example-card">
+                <mat-card-header class="justify-content-between  ">
+                    <mat-card-title>Пароль</mat-card-title>
+                    <mat-slide-toggle [color]="red" [checked]="checked" #passwordSlideToggle>Редактировать</mat-slide-toggle>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <form form class="" #profileFormPassword="ngForm">
+                        <mat-form-field class="registration-form-field ">
+                            <input matInput [(ngModel)]="user.password" name="password" minlength="8" maxlength="20"
+                                   #password="ngModel" type="password" required [readonly]="!passwordSlideToggle.checked">
+
+                            <mat-hint align="start"><strong>Ваш пароль для входа в систему</strong> </mat-hint>
+                            <mat-hint align="end">{{password.value?.length||0}} / 20</mat-hint>
+
+                            <mat-error *ngIf="password.hasError('required')">Введите Пароль</mat-error>
+                            <mat-error *ngIf="password.hasError('minlength')">Пароль слишком короткий(минимум 8 символов)</mat-error>
+                            <mat-error *ngIf="password.invalid
+               && !password.hasError('required')
+                && !password.hasError('minlength')">Введите валидный Пароль</mat-error>
+                        </mat-form-field>
+                    </form>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button color="primary" [disabled]="password.invalid  || !passwordSlideToggle.checked"
+                            (click)="updatePassword()">
+                        Изменить
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+
+
+        </div>
+
+        <!--<mat-card class="example-card mt-3 ">
+            <mat-card-header>
+                <mat-card-title>Пароль</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+                <mat-form-field class="registration-form-field">
+                    <input matInput name="password" minlength="8" maxlength="20" #password type="password" required>
+
+                    <mat-hint align="start"><strong>Ваш пароль для входа в систему</strong> </mat-hint>
+                    <mat-hint align="end">{{password.value?.length||0}} / 20</mat-hint>
+
+                    <mat-error *ngIf="password.hasError('required')">Введите Пароль</mat-error>
+                    <mat-error *ngIf="password.hasError('minlength')">Пароль слишком короткий(минимум 8 символов)</mat-error>
+                    <mat-error *ngIf="password.invalid
+                   && !password.hasError('required')
+                    && !password.hasError('minlength')">Введите валидный Пароль</mat-error>
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button color="primary" (click)="updateProfile()">Сохранить изменения</button>
+            </mat-card-actions>
+        </mat-card>-->
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Добавленные объявления
+            </mat-panel-title>
+            <mat-panel-description>
+                <!--Currently I am {{panelOpenState ? 'open' : 'closed'}}-->
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+    <!--    <p>I'm visible because I am open</p>-->
+        <div class="example-header d-flex justify-content-between align-items-center">
+            <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Найти">
+            </mat-form-field>
+            <button mat-raised-button color="primary" [routerLink]="['/advertisements/create']">Добавить объявление</button>
+
+        </div>
+        <div class="example-container mat-elevation-z8">
+
+            <mat-table [dataSource]="dataSource" matSort
+                       matSortActive="created" matSortDisableClear matSortDirection="asc">
+                >
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header ="true"> ID </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+                </ng-container>
+
+                <!-- Progress Column -->
+                <ng-container matColumnDef="address">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Адрес </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.city}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="cost">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Стоимость </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.cost}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="buttons">
+                    <mat-header-cell *matHeaderCellDef>Изменить </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <button mat-raised-button routerLink='/advertisements/{{row.id}}/edit'>Изменить</button>
+                        <button mat-raised-button (click)="deleteAdvertisement(row.id)">Удалить</button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;">
+                </mat-row>
+            </mat-table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </mat-expansion-panel>
+
+
+
+</mat-accordion>

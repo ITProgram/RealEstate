@@ -1,0 +1,80 @@
+﻿<!--<form class="form-signin mt-3" >
+    <h2> Регистрация</h2>
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Логин" name="login" [(ngModel)]="user.login"
+               #login="ngModel" required>
+        <div [hidden]="login.valid || login.untouched" class="invalid-feedback " #loginFeedback>
+            Не указан логин
+        </div>
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="email" name="email" [(ngModel)]="user.email" #email="ngModel" placeholder="Email"  required email />
+        <div [hidden]="email.valid || email.untouched" class="invalid-feedback " #emailFeedback>
+            Неверный email
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="password" class="form-control" placeholder="Пароль" [(ngModel)]="user.password" name="password" #password="ngModel" required>
+        <div [hidden]="password.valid || password.untouched" class=" invalid-feedback " #passwordFeedback>
+            Введите  пароль
+        </div>
+    </div>
+    <button type="button" class="btn btn-lg btn-primary btn-block" [disabled]="login.invalid || password.invalid || email.invalid" (click)="registration(loginFeedback,emailFeedback,passwordFeedback,errorResponse)">Зарегистрироваться</button>
+    <div class=" invalid-feedback " #errorResponse>
+
+    </div>
+</form>-->
+<form form class="mt-3 registration-form" fxLayout='column' fxLayoutAlign="center center"#registrationForm="ngForm">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <!--  <div mat-card-avatar class="example-header-image"></div>-->
+            <mat-card-title>Регистрация</mat-card-title>
+            <mat-card-subtitle>Давайте создадим для вас учётную запись!</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <mat-form-field class="registration-form-field ">
+                <input matInput [(ngModel)]="user.login" name="login" minlength="3" maxlength="30" placeholder="Логин" #login="ngModel" required>
+                <mat-hint align="start"><strong>Имя для входа в систему</strong> </mat-hint>
+                <mat-hint align="end">{{login.value?.length||0}} / 30</mat-hint>
+                <mat-error *ngIf="login.hasError('required')">Введите логин</mat-error>
+                <mat-error *ngIf="login.hasError('minlength')">Ваш логин слишком короткий( минимум 4 символа)</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="registration-form-field ">
+                <input matInput [(ngModel)]="user.email" name="email" placeholder="E-mail" type="email" #email="ngModel" required email>
+                <mat-hint align="start"><strong>Ваш E-mail( мы никому его не будем показывать)</strong> </mat-hint>
+                <mat-error *ngIf="email.hasError('required')">Введите email</mat-error>
+                <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">Введите валидный email</mat-error>
+                <mat-error *ngIf="email.invalid
+                           && !email.hasError('required')
+                           && !email.hasError('email')">Введите валидный email</mat-error>
+                <!--<mat-error *ngIf="email.invalid ">Введите валидный E-mail</mat-error>--->
+            </mat-form-field>
+
+            <mat-form-field class="registration-form-field">
+                <input matInput [(ngModel)]="user.password" name="password" minlength="8" maxlength="20" #password="ngModel" placeholder="Пароль" type="password" required>
+
+                <mat-hint align="start"><strong>Ваш пароль для входа в систему</strong> </mat-hint>
+                <mat-hint align="end">{{password.value?.length||0}} / 20</mat-hint>
+
+                <mat-error *ngIf="password.hasError('required')">В Пароль</mat-error>
+                <mat-error *ngIf="password.hasError('minlength')">Пароль слишком короткий(минимум 8 символов)</mat-error>
+                <mat-error *ngIf="password.invalid
+                               && !password.hasError('required')
+                                && !password.hasError('minlength')">Введите валидный Пароль</mat-error>
+
+                <!--<mat-error *ngIf="password.hasError('required')">Вы не ввели Пароль</mat-error>
+                <mat-error *ngIf="password.hasError('minlength')">Пароль слишком короткий(минимум 8 символов)</mat-error>
+                <mat-error *ngIf="password.invalid
+                               && !password.hasError('required')
+                                && !password.hasError('minlength')">Введите валидный Пароль</mat-error>-->
+
+
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button color="primary" [disabled]="registrationForm.invalid" (click)="registration()">Зарегистрироваться</button>
+        </mat-card-actions>
+    </mat-card>
+</form>

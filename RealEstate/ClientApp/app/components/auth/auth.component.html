@@ -1,0 +1,24 @@
+﻿
+
+<a *ngIf="authService.loggedIn()" [routerLink]="['/profile']" class="nav-link text-white active">Профиль </a>
+<a *ngIf="authService.loggedIn()"  style="cursor:pointer" (click)="authService.logout()" class="nav-link text-white active">Выйти </a>
+<a *ngIf="!authService.loggedIn()" [routerLink]="['/login']" class="nav-link text-white active">Войти </a>
+<a *ngIf="!authService.loggedIn()" [routerLink]="['/registration']" class="nav-link text-white active">Регистрация </a>
+<!--<a *ngIf="!auth.loggedIn()" class="nav-link text-white active" href="#">Войти</a>-->
+<!--<span class="hello-message" [hidden]="!isLoggedIn()">Hello, {{getUserName()}}!</span>
+<a (click)="isShowDialog = !isShowDialog" [hidden]="isLoggedIn()">Login</a>
+<a class="manage-block" (click)="logout()" [hidden]="!isLoggedIn()">Logout</a>
+<app-dialog [(visible)]="isShowDialog">
+    <div class="modal-header">
+        <span class="modal-title">Enter Login</span>
+    </div>
+    <div class="modal-body">
+        <form class="basic-form">
+            <input class="input-text" type="text" placeholder="  Username" #username required>
+            <input class="input-text" type="password" placeholder="  Password" #password required>
+            <input class="input-submit" type="submit" value="Login" (click)="login(username,password)">
+        </form>
+    </div>
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJleHAiOjE1MTI5NTQ0MDYsImlzcyI6Im1lIiwiYXVkIjoieW91In0.gvsjiVgvzcQBybwTUa7OxZ2pp2jha9bhpJ76lmnpNsU
+
+</app-dialog>-->

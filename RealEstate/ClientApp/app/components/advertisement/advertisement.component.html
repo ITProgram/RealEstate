@@ -1,0 +1,139 @@
+﻿
+
+
+<div class="container   mat-elevation-z3">
+    <div class="row  mat-elevation-z8">
+        <div class="col"><h3>{{concatAddress()}}</h3></div>
+
+    </div>
+    <div class="container-fluid m-0 p-0">
+        <agm-map #gm [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" style="margin:20px">
+            <agm-marker [latitude]="marker.latitude"
+                        [longitude]="marker.longitude">
+            </agm-marker>
+        </agm-map>
+    </div>
+    <div class="row d-flex justify-content-around" mat-elevation-z8>
+        <mat-card class="card col-md-3 m-3">
+            <mat-card-content>
+                <mat-list>
+                    <mat-list-item>
+                        <div class=" d-flex justify-content-between w-100">
+                            <span>Количество комнат:</span>
+                            <span>{{advertisement.roomsNumber||'-'}}</span>
+                        </div>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <div class=" d-flex justify-content-between w-100">
+                            <span>Год постройки:</span>
+                            <span>{{advertisement.constructionYear||'-'}}</span>
+                        </div>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <div class=" d-flex justify-content-between w-100">
+                            <span>Этаж:</span>
+                            <span>{{advertisement.floor||'-'}}/{{advertisement.totalFloors||'-'}}</span>
+                        </div>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <div class=" d-flex justify-content-between w-100">
+                            <span>Общая площадь(м<sup>2</sup>):</span>
+                            <span>{{advertisement.totalArea||'-'}}</span>
+                        </div>
+                    </mat-list-item> <mat-list-item>
+                        <div class=" d-flex justify-content-between w-100">
+                            <span>Жилая площадь(м<sup>2</sup>):</span>
+                            <span>{{advertisement.livingArea||'-'}}</span>
+                        </div>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <div class=" d-flex justify-content-between w-100">
+                            <span>Площадь кухни(м<sup>2</sup>):</span>
+                            <span>{{advertisement.kitchenArea||'-'}}</span>
+                        </div>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <div class=" d-flex justify-content-between w-100">
+                            <span>Балконы:</span>
+                            <span>{{advertisement.balcony?'есть':'-'}}</span>
+                        </div>
+                    </mat-list-item>
+                    <!--<mat-list-item>
+                        <div class=" d-flex justify-content-between w-100">
+                            <span>Количество комнат:</span>
+                            <span>{{advertisement.rooms||'-'}}</span>
+                        </div>
+                    </mat-list-item>-->
+                </mat-list>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="card col-md-3 m-3 ">
+            <mat-card-content>
+                <mat-list>
+                    <mat-list-item>
+                        <div class=" d-flex justify-content-between w-100">
+                            <span>Высота потолков(м<sup>2</sup> ):</span>
+                            <span>{{advertisement.ceilingHeight||'-'}}</span>
+                        </div>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <div class=" d-flex justify-content-between w-100">
+                            <span>Лифт:</span>
+                            <span>{{advertisement.elevator?'есть':'-'}}</span>
+                        </div>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <div class=" d-flex justify-content-between w-100">
+                            <span>Плита:</span>
+                            <span>{{advertisement.stove?'есть':'-'}}</span>
+                        </div>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <div class=" d-flex justify-content-between w-100">
+                            <span>Холодильник:</span>
+                            <span>{{advertisement.fridge?'есть':'-'}}</span>
+                        </div>
+                    </mat-list-item>
+                </mat-list>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="card col-md-3 m-3 ">
+            <mat-card-content>
+                <mat-list>
+                    <mat-list-item>
+                        <div class=" d-flex justify-content-between w-100">
+                            <span>Стоимость</span>
+                            <span>{{advertisement.cost||'-'}} руб.</span>
+                        </div>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <div class=" d-flex justify-content-between w-100">
+                            <span>Контакты:</span>
+                            <span>{{advertisement.phone||'-'}}</span>
+                        </div>
+                    </mat-list-item>
+                </mat-list>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="card col-12 m-3 " mat-elevation-z5>
+            <mat-card-title>
+                <h6>Описание:</h6>
+            </mat-card-title>
+            <mat-card-content>
+                {{advertisement.description}}
+                Продается однокомнатная квартира.
+                Дом из бетонных блоков, 2009 года постройки
+                С балконом (лоджией)
+                Без выделенного парковочного места
+
+                Расположение: - улица Сергея Есенина, 38 (несколько парковочных стоянок вокруг дома); - до станции метро Малиновка 7минут езды общественным транспортом (2 маршрута троллейбусов, 6 маршрутов автобусов, маршрутные такси через весь город); - в радиусе 4 детских сада и 3 школы; - возле дома фитнес клуб, тренажерный зал, бассейн Нептун - в 5 минутах езды; - шаговая доступность до взрослой и детской поликлиник, торговых центров и рынков.
+                Техническая характеристика дома: стены наружные - бетонные блоки, ячеистый бетон, внутренние-бетонные блоки, перегородки - блоки ячеистого бетона, кирпичные; полы – цементная стяжка; перекрытия-ж/б плиты, окна - ПВХ, два лифта (грузовой и пассажирский).
+                Квартира: - 13 этаж из 14-и; - высота помещения - 2.7м, общ. пл. - 42,5м2, жилая пл. – 18,4 м2, пл. кухни - 10,9м2, лоджия - 2м2. Ремонт в с/у, ванной, коридоре и кухне – готов, в комнате частично. На полу в прихожей плитка, в комнате ламинат. В квартире остается кухня и шкаф купе. Металлическая дверь. Отличный вид из окна на город, южная сторона, в квартире всегда тепло и уютно. Индивидуальные датчики учета тепла расположены в общем коридоре, в котором есть место для коляски и велосипеда.
+                На этаже 6 квартир. Благополучные соседи (не социальный дом). Во дворе большая и яркая детская площадка.
+                Квартира с огромным потенциалом, ждет своих новых хозяев. Приходите и во всем убедитесь сами!
+            </mat-card-content>
+        </mat-card>
+
+
+    </div>
+</div>

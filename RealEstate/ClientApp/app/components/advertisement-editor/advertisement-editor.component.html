@@ -1,0 +1,162 @@
+﻿<div class="container d-flex flex-column  justify-content-center">
+    <mat-card class="example-card">
+        <mat-card-header class="justify-content-between ">
+            <mat-card-title>{{concatAddress()}}</mat-card-title>
+            <mat-slide-toggle [color]="red" #advertisementSlideToggle [hidden]="!editable">Редактировать</mat-slide-toggle>
+        </mat-card-header>
+
+        <mat-card-content>
+
+            <form form #advertisementForm="ngForm" class=" d-flex flex-column">
+                <mat-form-field class="d-flex">
+                    <mat-select [(ngModel)]="advertisement.type" name="type" placeholder="Тип объявления" required>
+                        <mat-option value=1>Продажа</mat-option>
+                        <mat-option value=2>Аренда</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+                <div class="d-flex flex-wrap ">
+
+                    <mat-form-field class="">
+                        <input matInput [(ngModel)]="advertisement.region" name="region"
+                               placeholder="Область" #region="ngModel" required>
+                        <mat-error *ngIf="region.hasError('required')">Введите область</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="">
+                        <input matInput [(ngModel)]="advertisement.district" name="district"
+                               placeholder="Район" #district="ngModel">
+                    </mat-form-field>
+                    <mat-form-field class="">
+                        <input matInput [(ngModel)]="advertisement.city" name="city"
+                               placeholder="Город" #totalFloors="ngModel">
+                    </mat-form-field>
+                    <mat-form-field class="">
+                        <input matInput [(ngModel)]="advertisement.street" name="street"
+                               placeholder="Микрорайон, улица, проспект..." #street="ngModel">
+                    </mat-form-field>
+                    <mat-form-field class="">
+                        <input matInput [(ngModel)]="advertisement.housing" name="housing"
+                               placeholder="корпус" #housing="ngModel">
+                    </mat-form-field>
+                    <mat-form-field class="">
+                        <input matInput [(ngModel)]="advertisement.house" name="house"
+                               placeholder="дом" #house="ngModel">
+                    </mat-form-field>
+                    <mat-form-field class="">
+                        <input matInput [(ngModel)]="advertisement.apartment" name="apartment"
+                               placeholder="номер" apartment="ngModel">
+                    </mat-form-field>
+                </div>
+
+                <div class="d-flex flex-wrap ">
+                    <mat-form-field class="">
+                        <input matInput [(ngModel)]="advertisement.cost" name="cost" type="number" min="0" max="2000"
+                               placeholder="Стоимость" #cost="ngModel">
+                    </mat-form-field>
+                    <mat-form-field class="">
+                        <input matInput [(ngModel)]="advertisement.floor" name="floor" type="number" min="0" max="50"
+                               placeholder="Этаж" #floor="ngModel">
+                    </mat-form-field>
+                    <mat-form-field class="">
+                        <input matInput [(ngModel)]="advertisement.totalFloors" name="totalFloors" type="number" min="0" max="50"
+                               placeholder="Этажей в доме" #totalFloors="ngModel">
+                    </mat-form-field>
+                    <mat-form-field class="">
+                        <input matInput [(ngModel)]="advertisement.roomsNumber" name="roomsNumber" type="number" min="0" max="20"
+                               placeholder="Количество комнат" #roomsNumber="ngModel">
+                    </mat-form-field>
+                    <mat-form-field class="">
+                        <input matInput [(ngModel)]="advertisement.constructionYear" name="constructionYear" type="number" min="1900" max="2050"
+                               placeholder="Год постройки" #constructionYear="ngModel">
+                    </mat-form-field>
+                    <mat-form-field class="">
+                        <input matInput [(ngModel)]="advertisement.totalArea" name="totalArea" type="number" min="0" max="1000"
+                               placeholder="Общая площадь(м2)" #totalArea="ngModel">
+                    </mat-form-field>
+                    <mat-form-field class="">
+                        <input matInput [(ngModel)]="advertisement.livingArea" name="livingArea" type="number" min="0" max="1000"
+                               placeholder="Жилая площадь(м2)" #livingArea="ngModel">
+                    </mat-form-field>
+                    <mat-form-field class="">
+                        <input matInput [(ngModel)]="advertisement.kitchenArea" name="kitchenArea" type="number" min="0" max="1000"
+                               placeholder="Площадь кухни(м2)" #kitchenArea="ngModel">
+                    </mat-form-field>
+                </div>
+                <div class="d-flex flex-wrap ">
+
+                    <mat-form-field class=" d-flex">
+                        <input matInput [(ngModel)]="advertisement.phone" name="phone" type="tel" style="max-width:300px"
+                               placeholder="контактный телефон" #phone="ngModel">
+                    </mat-form-field>
+                </div>
+                <mat-checkbox [(ngModel)]="advertisement.balcony" #balcony="ngModel" name="balcony">Балкон</mat-checkbox>
+                <mat-checkbox [(ngModel)]="advertisement.elevator" #elevator="ngModel" name="elevator">Лифт</mat-checkbox>
+                <!--<mat-checkbox [(ngModel)]="advertisement.stove" #stove="ngModel" name="stove">Плита</mat-checkbox>
+                <mat-checkbox [(ngModel)]="advertisement.fridge" #fridge="ngModel" name="fridge">Холодильник</mat-checkbox>-->
+                <mat-form-field class="0">
+                    <textarea matInput [(ngModel)]="advertisement.description" name="description" maxlength="3000"
+                              placeholder="Описание" #description="ngModel" matTextareaAutosize matAutosizeMinRows="2"
+                              matAutosizeMaxRows="30"></textarea>
+                    <mat-hint align="end">{{description?.value?.length||0}} / 3000</mat-hint>
+                </mat-form-field>
+
+            </form>
+
+
+
+
+            <!--<form form class="" #profileForm="ngForm">
+
+        <mat-form-field class="registration-form-field ">
+            <input matInput [(ngModel)]="user.login" name="login" minlength="3" maxlength="30"
+                   placeholder="Логин" #login="ngModel" required [readonly]="!advertisementSlideToggle.checked">
+            <mat-hint align="start"><strong>Имя для входа в систему</strong> </mat-hint>
+            <mat-hint align="end">{{login.value?.length||0}} / 30</mat-hint>
+            <mat-error *ngIf="login.hasError('required')">Введите логин</mat-error>
+            <mat-error *ngIf="login.hasError('minlength')">Ваш логин слишком короткий( минимум 4 символа)</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="registration-form-field ">
+            <input matInput [(ngModel)]="user.email" name="email" placeholder="E-mail" type="email"
+                   #email="ngModel" required email [readonly]="!advertisementSlideToggle.checked">
+            <mat-hint align="start"><strong>Ваш E-mail( мы никому его не будем показывать)</strong> </mat-hint>
+            <mat-error *ngIf="email.hasError('required')">Введите email</mat-error>
+            <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">Введите валидный email</mat-error>
+            <mat-error *ngIf="email.invalid
+                   && !email.hasError('required')
+                   && !email.hasError('email')">Введите валидный email</mat-error>
+        </mat-form-field>
+    </form>-->
+            <div class="container-fluid m-0 p-0">
+                <agm-map  #gm [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" style="margin:20px">
+                    <agm-marker [latitude]="marker.latitude"
+                                [longitude]="marker.longitude"
+                                [markerDraggable]=true
+                                (dragEnd)="dragEnd($event)">
+                    </agm-marker>
+                </agm-map>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary"
+                    *ngIf="isCreateMode"
+                    [disabled]="advertisementForm.invalid "
+                    (click)="createAdvertisement()"
+                    style="width: 100%;">
+                Добавить объявление
+            </button>
+            <button mat-raised-button color="primary"
+                    *ngIf="isEditMode"
+                    [disabled]="advertisementForm.invalid "
+                    (click)="updateAdvertisement()"
+                    style="width: 100%;">
+                Сохранить изменения
+            </button>
+        </mat-card-actions>
+    </mat-card>
+
+
+
+
+</div>

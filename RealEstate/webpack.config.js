@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const AotPlugin = require('@ngtools/webpack').AotPlugin;
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
-
 module.exports = (env) => {
     // Configuration in common to both client-side and server-side bundles
     const isDevBuild = !(env && env.prod);
@@ -13,6 +12,7 @@ module.exports = (env) => {
         resolve: { extensions: [ '.js', '.ts' ] },
         output: {
             filename: '[name].js',
+
             publicPath: 'dist/' // Webpack dev middleware, if enabled, handles requests for this URL prefix
         },
         module: {
@@ -30,11 +30,20 @@ module.exports = (env) => {
     const clientBundleOutputDir = './wwwroot/dist';
     const clientBundleConfig = merge(sharedConfig, {
         entry: { 'main-client': './ClientApp/boot.browser.ts' },
-        output: { path: path.join(__dirname, clientBundleOutputDir) },
+        output: {
+            path: path.join(__dirname, clientBundleOutputDir)
+
+        },
         plugins: [
             new webpack.DllReferencePlugin({
                 context: __dirname,
                 manifest: require('./wwwroot/dist/vendor-manifest.json')
+            }),
+            new webpack.ProvidePlugin({
+                $: "jquery",
+                jQuery: 'jquery',
+                'window.jQuery': 'jquery',
+                Popper: ['popper.js', 'default']
             })
         ].concat(isDevBuild ? [
             // Plugins that apply in development builds only
@@ -49,7 +58,8 @@ module.exports = (env) => {
                 tsConfigPath: './tsconfig.json',
                 entryModule: path.join(__dirname, 'ClientApp/app/app.browser.module#AppModule'),
                 exclude: ['./**/*.server.ts']
-            })
+                })
+            
         ])
     });
 

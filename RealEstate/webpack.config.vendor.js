@@ -2,6 +2,9 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const merge = require('webpack-merge');
+
+
+
 const treeShakableModules = [
     '@angular/animations',
     '@angular/common',
@@ -12,24 +15,29 @@ const treeShakableModules = [
     '@angular/platform-browser',
     '@angular/platform-browser-dynamic',
     '@angular/router',
-    'zone.js',
+    '@angular/material/prebuilt-themes/deeppurple-amber.css',
+    'zone.js'
 ];
 const nonTreeShakableModules = [
+
     'bootstrap',
     'bootstrap/dist/css/bootstrap.css',
     'es6-promise',
     'es6-shim',
     'event-source-polyfill',
-    'jquery',
+    'jquery'
+
+
 ];
 const allModules = treeShakableModules.concat(nonTreeShakableModules);
 
-module.exports = (env) => {
+module.exports = (env) =>
+{
     const extractCSS = new ExtractTextPlugin('vendor.css');
     const isDevBuild = !(env && env.prod);
     const sharedConfig = {
         stats: { modules: false },
-        resolve: { extensions: [ '.js' ] },
+        resolve: { extensions: ['.js'] },
         module: {
             rules: [
                 { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: 'url-loader?limit=100000' }
@@ -57,7 +65,11 @@ module.exports = (env) => {
         output: { path: path.join(__dirname, 'wwwroot', 'dist') },
         module: {
             rules: [
-                { test: /\.css(\?|$)/, use: extractCSS.extract({ use: isDevBuild ? 'css-loader' : 'css-loader?minimize' }) }
+                {
+                    test: /\.css(\?|$)/,
+                    use: extractCSS.extract({ use: isDevBuild ? 'css-loader' : 'css-loader?minimize' })
+                }
+                //ьн
             ]
         },
         plugins: [
@@ -65,6 +77,12 @@ module.exports = (env) => {
             new webpack.DllPlugin({
                 path: path.join(__dirname, 'wwwroot', 'dist', '[name]-manifest.json'),
                 name: '[name]_[hash]'
+            }),
+            new webpack.ProvidePlugin({
+                $: "jquery",
+                jQuery: 'jquery',
+                'window.jQuery': 'jquery',
+                Popper: ['popper.js', 'default']
             })
         ].concat(isDevBuild ? [] : [
             new webpack.optimize.UglifyJsPlugin()
@@ -80,7 +98,7 @@ module.exports = (env) => {
             libraryTarget: 'commonjs2',
         },
         module: {
-            rules: [ { test: /\.css(\?|$)/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize' ] } ]
+            rules: [{ test: /\.css(\?|$)/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize'] }]
         },
         plugins: [
             new webpack.DllPlugin({
